@@ -1,12 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar archivo de texto</title>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages. 11:09</p>
-$texto = fopen("APSS.txt", "r");
+    <h1>Contenido del archivo texto.txt</h1>
+    <pre id="text-content"></pre>
 
-//Para mostrarlo
-echo nl2br($texto); 
+    <script>
+        // Leer el archivo de texto usando JavaScript (XMLHttpRequest)
+        function leerArchivo(event) {
+            var archivo = event.target;
+            if (archivo.readyState === FileReader.DONE) {
+                if (archivo.status === 200) {
+                    // Mostrar el contenido del archivo en el elemento <pre>
+                    var textContent = document.getElementById("text-content");
+                    textContent.textContent = archivo.result;
+                } else {
+                    alert("Error al leer el archivo.");
+                }
+            }
+        }
+
+        // Crear un objeto FileReader
+        var reader = new FileReader();
+
+        // Configurar el evento loadend para leer el archivo
+        reader.onloadend = leerArchivo;
+
+        // Leer el archivo de texto
+        var archivo = new File([""], "APSS.txt"); // Reemplaza "texto.txt" con el nombre de tu archivo
+        reader.readAsText(archivo);
+    </script>
 </body>
-
 </html>
